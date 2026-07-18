@@ -12,7 +12,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let mounted = true;
 
-    const { data: { subscription } } = supabase.current.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.current.auth.onAuthStateChange((_event: any, session: any) => {
       if (!mounted) return;
       if (!session) {
         router.push("/signin");

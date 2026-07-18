@@ -98,7 +98,7 @@ export const FinanceProvider = ({ children }: { children: ReactNode }) => {
             savedAmount: goal.saved_amount,
             targetAmount: goal.target_amount,
             deadline: goal.deadline,
-            contributions: contributions.map(c => ({
+            contributions: (contributions as any[]).map((c: any) => ({
               date: c.date,
               amount: parseFloat(c.amount as any) || 0,
             })),
@@ -192,7 +192,7 @@ export const FinanceProvider = ({ children }: { children: ReactNode }) => {
     };
     init();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event: any, session: any) => {
       if (session?.user) {
         await refreshData();
       } else {
