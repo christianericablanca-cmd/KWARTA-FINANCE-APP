@@ -5,6 +5,8 @@ import { useFinance } from "@/context/FinanceContext";
 import { useRouter } from "next/navigation";
 import CurrencyInput from "@/components/form/CurrencyInput";
 
+export const dynamic = 'force-dynamic';
+
 export default function AddAccountPage() {
   const { addAccount } = useFinance();
   const router = useRouter();
