@@ -1,7 +1,11 @@
 import { createClient } from "@/lib/supabase/client";
 import { Account, Transaction, Category, Budget, SavingsGoal, Bill, Notification, Profile, AppData } from "@/lib/types";
 
-const supabase = createClient();
+let _supabase: ReturnType<typeof createClient> | null = null;
+function getSupabase() {
+  if (!_supabase) _supabase = createClient();
+  return _supabase;
+}
 
 function toSnakeAccount(a: Partial<Account>): Record<string, unknown> {
   const r: Record<string, unknown> = {};
@@ -62,49 +66,49 @@ function toSnakeBill(b: Partial<Bill>): Record<string, unknown> {
 
 export const supabaseDb = {
   async getAccounts(userId: string): Promise<Account[]> {
-    const { data, error } = await supabase.from("accounts").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+    const { data, error } = await getSupabase().from("accounts").select("*").eq("user_id", userId).order("created_at", { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getCategories(userId: string): Promise<Category[]> {
-    const { data, error } = await supabase.from("categories").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+    const { data, error } = await getSupabase().from("categories").select("*").eq("user_id", userId).order("created_at", { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getTransactions(userId: string): Promise<Transaction[]> {
-    const { data, error } = await supabase.from("transactions").select("*").eq("user_id", userId).order("date", { ascending: false });
+    const { data, error } = await getSupabase().from("transactions").select("*").eq("user_id", userId).order("date", { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getBudgets(userId: string): Promise<Budget[]> {
-    const { data, error } = await supabase.from("budgets").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+    const { data, error } = await getSupabase().from("budgets").select("*").eq("user_id", userId).order("created_at", { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getSavingsGoals(userId: string): Promise<SavingsGoal[]> {
-    const { data, error } = await supabase.from("savings_goals").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+    const { data, error } = await getSupabase().from("savings_goals").select("*").eq("user_id", userId).order("created_at", { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getContributions(goalId: string) {
-    const { data, error } = await supabase.from("contributions").select("*").eq("goal_id", goalId).order("date", { ascending: false });
+    const { data, error } = await getSupabase().from("contributions").select("*").eq("goal_id", goalId).order("date", { ascending: false });
     if (error) throw error;
     return data || [];
   },
 
   async getBills(userId: string): Promise<Bill[]> {
-    const { data, error } = await supabase.from("bills").select("*").eq("user_id", userId).order("due_date", { ascending: true });
+    const { data, error } = await getSupabase().from("bills").select("*").eq("user_id", userId).order("due_date", { ascending: true });
     if (error) throw error;
     return data || [];
   },
 
   async getNotifications(userId: string): Promise<Notification[]> {
-    const { data, error } = await supabase.from("notifications").select("*").eq("user_id", userId).order("time", { ascending: false });
+    const { data, error } = await getSupabase().from("notifications").select("*").eq("user_id", userId).order("time", { ascending: false });
     if (error) throw error;
     return data || [];
   },
@@ -112,7 +116,7 @@ export const supabaseDb = {
   async createAccount(userId: string, account: Partial<Account>) {
     const r = toSnakeAccount(account);
     r.user_id = userId;
-    const { data, error } = await supabase.from("accounts").insert(r).select().single();
+    const { data, error } = await getSupabase().from("accounts").insert(r).select().single();
     if (error) throw error;
     return data;
   },
@@ -120,7 +124,7 @@ export const supabaseDb = {
   async createTransaction(userId: string, transaction: Partial<Transaction>) {
     const r = toSnakeTransaction(transaction);
     r.user_id = userId;
-    const { data, error } = await supabase.from("transactions").insert(r).select().single();
+    const { data, error } = await getSupabase().from("transactions").insert(r).select().single();
     if (error) throw error;
     return data;
   },
@@ -133,7 +137,7 @@ export const supabaseDb = {
     if (category.color !== undefined) r.color = category.color;
     if (category.budget !== undefined) r.budget = category.budget;
     r.user_id = userId;
-    const { data, error } = await supabase.from("categories").insert(r).select().single();
+    const { data, error } = await getSupabase().from("categories").insert(r).select().single();
     if (error) throw error;
     return data;
   },
@@ -141,7 +145,7 @@ export const supabaseDb = {
   async createBudget(userId: string, budget: Partial<Budget>) {
     const r = toSnakeBudget(budget);
     r.user_id = userId;
-    const { data, error } = await supabase.from("budgets").insert(r).select().single();
+    const { data, error } = await getSupabase().from("budgets").insert(r).select().single();
     if (error) throw error;
     return data;
   },
@@ -149,13 +153,13 @@ export const supabaseDb = {
   async createSavingsGoal(userId: string, goal: Partial<SavingsGoal>) {
     const r = toSnakeSavingsGoal(goal);
     r.user_id = userId;
-    const { data, error } = await supabase.from("savings_goals").insert(r).select().single();
+    const { data, error } = await getSupabase().from("savings_goals").insert(r).select().single();
     if (error) throw error;
     return data;
   },
 
   async createContribution(goalId: string, amount: number) {
-    const { data, error } = await supabase.from("contributions").insert({ goal_id: goalId, amount, date: new Date().toISOString().split("T")[0] }).select().single();
+    const { data, error } = await getSupabase().from("contributions").insert({ goal_id: goalId, amount, date: new Date().toISOString().split("T")[0] }).select().single();
     if (error) throw error;
     return data;
   },
@@ -163,21 +167,21 @@ export const supabaseDb = {
   async createBill(userId: string, bill: Partial<Bill>) {
     const r = toSnakeBill(bill);
     r.user_id = userId;
-    const { data, error } = await supabase.from("bills").insert(r).select().single();
+    const { data, error } = await getSupabase().from("bills").insert(r).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateAccount(id: string, updates: Partial<Account>) {
     const r = toSnakeAccount(updates);
-    const { data, error } = await supabase.from("accounts").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("accounts").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateTransaction(id: string, updates: Partial<Transaction>) {
     const r = toSnakeTransaction(updates);
-    const { data, error } = await supabase.from("transactions").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("transactions").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
@@ -189,28 +193,28 @@ export const supabaseDb = {
     if (updates.icon !== undefined) r.icon = updates.icon;
     if (updates.color !== undefined) r.color = updates.color;
     if (updates.budget !== undefined) r.budget = updates.budget;
-    const { data, error } = await supabase.from("categories").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("categories").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateBudget(id: string, updates: Partial<Budget>) {
     const r = toSnakeBudget(updates);
-    const { data, error } = await supabase.from("budgets").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("budgets").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateSavingsGoal(id: string, updates: Partial<SavingsGoal>) {
     const r = toSnakeSavingsGoal(updates);
-    const { data, error } = await supabase.from("savings_goals").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("savings_goals").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
 
   async updateBill(id: string, updates: Partial<Bill>) {
     const r = toSnakeBill(updates);
-    const { data, error } = await supabase.from("bills").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("bills").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
@@ -218,43 +222,43 @@ export const supabaseDb = {
   async updateNotification(id: string, updates: Partial<Notification>) {
     const r: Record<string, unknown> = {};
     if (updates.read !== undefined) r.read = updates.read;
-    const { data, error } = await supabase.from("notifications").update(r).eq("id", id).select().single();
+    const { data, error } = await getSupabase().from("notifications").update(r).eq("id", id).select().single();
     if (error) throw error;
     return data;
   },
 
   async deleteAccount(id: string) {
-    const { error } = await supabase.from("accounts").delete().eq("id", id);
+    const { error } = await getSupabase().from("accounts").delete().eq("id", id);
     if (error) throw error;
   },
 
   async deleteTransaction(id: string) {
-    const { error } = await supabase.from("transactions").delete().eq("id", id);
+    const { error } = await getSupabase().from("transactions").delete().eq("id", id);
     if (error) throw error;
   },
 
   async deleteCategory(id: string) {
-    const { error } = await supabase.from("categories").delete().eq("id", id);
+    const { error } = await getSupabase().from("categories").delete().eq("id", id);
     if (error) throw error;
   },
 
   async deleteBudget(id: string) {
-    const { error } = await supabase.from("budgets").delete().eq("id", id);
+    const { error } = await getSupabase().from("budgets").delete().eq("id", id);
     if (error) throw error;
   },
 
   async deleteSavingsGoal(id: string) {
-    const { error } = await supabase.from("savings_goals").delete().eq("id", id);
+    const { error } = await getSupabase().from("savings_goals").delete().eq("id", id);
     if (error) throw error;
   },
 
   async deleteBill(id: string) {
-    const { error } = await supabase.from("bills").delete().eq("id", id);
+    const { error } = await getSupabase().from("bills").delete().eq("id", id);
     if (error) throw error;
   },
 
   async getProfile(userId: string): Promise<Profile | null> {
-    const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
+    const { data, error } = await getSupabase().from("profiles").select("*").eq("id", userId).single();
     if (error) return null;
     return {
       id: data.id,
@@ -274,18 +278,18 @@ export const supabaseDb = {
     if (updates.timezone !== undefined) dbUpdates.timezone = updates.timezone;
     if (updates.language !== undefined) dbUpdates.language = updates.language;
     if (updates.theme !== undefined) dbUpdates.theme = updates.theme;
-    const { data, error } = await supabase.from("profiles").update(dbUpdates).eq("id", userId).select().single();
+    const { data, error } = await getSupabase().from("profiles").update(dbUpdates).eq("id", userId).select().single();
     if (error) throw error;
     return data;
   },
 
   async resetAllData(userId: string) {
-    await supabase.from("savings_goals").delete().eq("user_id", userId);
-    await supabase.from("budgets").delete().eq("user_id", userId);
-    await supabase.from("transactions").delete().eq("user_id", userId);
-    await supabase.from("bills").delete().eq("user_id", userId);
-    await supabase.from("categories").delete().eq("user_id", userId);
-    await supabase.from("accounts").delete().eq("user_id", userId);
-    await supabase.from("notifications").delete().eq("user_id", userId);
+    await getSupabase().from("savings_goals").delete().eq("user_id", userId);
+    await getSupabase().from("budgets").delete().eq("user_id", userId);
+    await getSupabase().from("transactions").delete().eq("user_id", userId);
+    await getSupabase().from("bills").delete().eq("user_id", userId);
+    await getSupabase().from("categories").delete().eq("user_id", userId);
+    await getSupabase().from("accounts").delete().eq("user_id", userId);
+    await getSupabase().from("notifications").delete().eq("user_id", userId);
   },
 };
