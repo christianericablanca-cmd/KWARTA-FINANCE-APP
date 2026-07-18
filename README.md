@@ -145,6 +145,38 @@ Kwarta is built mobile-first with:
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
 
+## Deploy to Vercel
+
+The easiest way to deploy Kwarta is on [Vercel](https://vercel.com), the platform built by the creators of Next.js.
+
+### One-Click Deploy
+
+1. Push this repo to GitHub (already done)
+2. Go to [vercel.com/new](https://vercel.com/new)
+3. Import your GitHub repo: `christianericablanca-cmd/KWARTA-FINANCE-APP`
+4. Vercel auto-detects Next.js — no configuration needed
+5. Add environment variables:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-anon-key
+   ```
+6. Click **Deploy**
+
+Your app will be live at `https://kwarta.vercel.app` (or your custom domain).
+
+### Supabase Production Checklist
+
+Before going live:
+
+1. **Run the schema** — Execute `supabase-schema.sql` in your Supabase project's SQL Editor
+2. **Enable email auth** — In Supabase Dashboard → Authentication → Providers → Enable Email
+3. **Set Site URL** — In Authentication → URL Configuration, add your Vercel domain
+4. **Disable confirmations** (optional) — If you don't want email confirmation, uncheck "Confirm email" in Auth settings
+
+### Custom Domain
+
+In Vercel → Project Settings → Domains, add your custom domain. Update the Site URL in Supabase Auth settings to match. |
+
 ## Project Structure
 
 ```
