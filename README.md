@@ -175,7 +175,18 @@ Before going live:
 
 ### Custom Domain
 
-In Vercel → Project Settings → Domains, add your custom domain. Update the Site URL in Supabase Auth settings to match. |
+In Vercel → Project Settings → Domains, add your custom domain. Update the Site URL in Supabase Auth settings to match.
+
+## PWA / Mobile App
+
+Kwarta is built mobile-first and works as a Progressive Web App. Once deployed to Vercel:
+
+1. Open the app in **Chrome** or **Safari** on your phone
+2. Tap the **three-dot menu** (Chrome) or **Share button** (Safari)
+3. Select **"Install app"** or **"Add to Home Screen"**
+4. It launches like a native app — full screen, no browser chrome
+
+This gives you a native app experience without the App Store.
 
 ## Project Structure
 
