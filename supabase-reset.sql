@@ -1,0 +1,45 @@
+-- Drop existing Fundex tables (safe, won't affect other tables)
+DROP POLICY IF EXISTS "Users can view own profile" ON profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON profiles;
+DROP POLICY IF EXISTS "Users can insert own profile" ON profiles;
+DROP POLICY IF EXISTS "Users can view own accounts" ON accounts;
+DROP POLICY IF EXISTS "Users can insert own accounts" ON accounts;
+DROP POLICY IF EXISTS "Users can update own accounts" ON accounts;
+DROP POLICY IF EXISTS "Users can delete own accounts" ON accounts;
+DROP POLICY IF EXISTS "Users can view own categories" ON categories;
+DROP POLICY IF EXISTS "Users can insert own categories" ON categories;
+DROP POLICY IF EXISTS "Users can update own categories" ON categories;
+DROP POLICY IF EXISTS "Users can delete own categories" ON categories;
+DROP POLICY IF EXISTS "Users can view own transactions" ON transactions;
+DROP POLICY IF EXISTS "Users can insert own transactions" ON transactions;
+DROP POLICY IF EXISTS "Users can update own transactions" ON transactions;
+DROP POLICY IF EXISTS "Users can delete own transactions" ON transactions;
+DROP POLICY IF EXISTS "Users can view own budgets" ON budgets;
+DROP POLICY IF EXISTS "Users can insert own budgets" ON budgets;
+DROP POLICY IF EXISTS "Users can update own budgets" ON budgets;
+DROP POLICY IF EXISTS "Users can delete own budgets" ON budgets;
+DROP POLICY IF EXISTS "Users can view own savings goals" ON savings_goals;
+DROP POLICY IF EXISTS "Users can insert own savings goals" ON savings_goals;
+DROP POLICY IF EXISTS "Users can update own savings goals" ON savings_goals;
+DROP POLICY IF EXISTS "Users can delete own savings goals" ON savings_goals;
+DROP POLICY IF EXISTS "Users can view own contributions" ON contributions;
+DROP POLICY IF EXISTS "Users can insert own contributions" ON contributions;
+DROP POLICY IF EXISTS "Users can view own bills" ON bills;
+DROP POLICY IF EXISTS "Users can insert own bills" ON bills;
+DROP POLICY IF EXISTS "Users can update own bills" ON bills;
+DROP POLICY IF EXISTS "Users can delete own bills" ON bills;
+DROP POLICY IF EXISTS "Users can view own notifications" ON notifications;
+DROP POLICY IF EXISTS "Users can update own notifications" ON notifications;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+DROP FUNCTION IF EXISTS public.handle_new_user();
+
+DROP TABLE IF EXISTS notifications CASCADE;
+DROP TABLE IF EXISTS bills CASCADE;
+DROP TABLE IF EXISTS contributions CASCADE;
+DROP TABLE IF EXISTS savings_goals CASCADE;
+DROP TABLE IF EXISTS budgets CASCADE;
+DROP TABLE IF EXISTS transactions CASCADE;
+DROP TABLE IF EXISTS categories CASCADE;
+DROP TABLE IF EXISTS accounts CASCADE;
+DROP TABLE IF EXISTS profiles CASCADE;
