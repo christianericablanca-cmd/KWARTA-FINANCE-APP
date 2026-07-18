@@ -9,7 +9,8 @@ export const createClient = () => {
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
   if (!url || !key) {
-    throw new Error('Supabase environment variables are not set.');
+    console.error('Missing Supabase env vars. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in Vercel.');
+    return {} as ReturnType<typeof createBrowserClient>;
   }
 
   return createBrowserClient(url, key);
