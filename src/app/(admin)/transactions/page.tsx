@@ -410,7 +410,7 @@ export default function TransactionsPage() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setIsModalOpen(false)}>
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[90vh] overflow-y-auto bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">
                 {editingTransaction ? "Edit Transaction" : "Add Transaction"}

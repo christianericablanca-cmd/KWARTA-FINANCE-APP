@@ -220,7 +220,7 @@ export default function SavingsGoalsPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setIsModalOpen(false)}>
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[90vh] overflow-y-auto bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">{editingGoal ? "Edit Goal" : "Add Goal"}</h3>
               <button onClick={() => setIsModalOpen(false)} className="absolute top-0 right-0 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
@@ -267,7 +267,7 @@ export default function SavingsGoalsPage() {
 
       {showContributionModal && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setShowContributionModal(false)}>
-          <div className="w-full max-w-sm rounded-t-2xl sm:rounded-2xl max-h-[90vh] overflow-y-auto bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-sm rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">Add Contribution</h3>
               <button onClick={() => setShowContributionModal(false)} className="absolute top-0 right-0 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">

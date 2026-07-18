@@ -166,7 +166,7 @@ export default function BudgetPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[90vh] overflow-y-auto bg-white p-6 dark:bg-gray-900">
+          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">{editingBudget ? "Edit Budget" : "Add Budget"}</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>

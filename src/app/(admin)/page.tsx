@@ -387,7 +387,7 @@ export default function FinanceDashboard() {
       {quickOpen && (
         <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50" onClick={() => setQuickOpen(false)}>
           <div
-            className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 max-h-[85vh] overflow-y-auto p-5"
+            className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 max-h-[75vh] overflow-y-auto overscroll-contain p-5"
             onClick={e => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-4">
