@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { useFinance } from "@/context/FinanceContext";
-import { useRouter } from "next/navigation";
 import CurrencyInput from "@/components/form/CurrencyInput";
+import { useRouter } from "next/navigation";
+
+export const dynamic = 'force-dynamic';
 
 export default function AddTransactionPage() {
   const { addTransaction, categories, accounts } = useFinance();

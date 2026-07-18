@@ -8,6 +8,8 @@ import MobileBottomNav from "@/layout/MobileBottomNav";
 import AuthGuard from "@/components/AuthGuard";
 import React from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function AdminLayout({
   children,
 }: {
