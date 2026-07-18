@@ -220,14 +220,15 @@ export default function SavingsGoalsPage() {
 
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setIsModalOpen(false)}>
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
-            <div className="relative">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">{editingGoal ? "Edit Goal" : "Add Goal"}</h3>
-              <button onClick={() => setIsModalOpen(false)} className="absolute top-0 right-0 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
+          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[85vh] sm:max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+            <div className="relative p-6 pb-2 shrink-0">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">{editingGoal ? "Edit Goal" : "Add Goal"}</h3>
+              <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
                 <CloseIcon className="w-5 h-5" />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
+              <div className="overflow-y-auto overscroll-contain px-6 pb-4 space-y-4 flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Goal Name</label>
                 <input type="text" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-gray-800 dark:text-white/90" required />
@@ -244,7 +245,8 @@ export default function SavingsGoalsPage() {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Deadline</label>
                 <input type="date" value={formData.deadline} onChange={e => setFormData({ ...formData, deadline: e.target.value })} className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-gray-800 dark:text-white/90" required />
               </div>
-              <div className="flex justify-end gap-3 pt-4">
+              </div>
+              <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-gray-700 shrink-0 bg-white dark:bg-gray-900">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Cancel</button>
                 <button
                   type="submit"
@@ -267,34 +269,34 @@ export default function SavingsGoalsPage() {
 
       {showContributionModal && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setShowContributionModal(false)}>
-          <div className="w-full max-w-sm rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
-            <div className="relative">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">Add Contribution</h3>
-              <button onClick={() => setShowContributionModal(false)} className="absolute top-0 right-0 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
+          <div className="w-full max-w-sm rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[85vh] sm:max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+            <div className="relative p-6 pb-2 shrink-0">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">Add Contribution</h3>
+              <button onClick={() => setShowContributionModal(false)} className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
                 <CloseIcon className="w-5 h-5" />
               </button>
             </div>
-            <div className="space-y-4">
+            <div className="overflow-y-auto overscroll-contain px-6 pb-4 space-y-4 flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Amount</label>
                 <CurrencyInput value={contributionAmount} onChange={(val) => setContributionAmount(val)} className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2 text-gray-800 dark:text-white/90" required min={0.01} />
               </div>
-              <div className="flex justify-end gap-3 pt-4">
-                <button onClick={() => setShowContributionModal(false)} className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Cancel</button>
-                <button
-                  onClick={handleContribution}
-                  disabled={saving}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {saving && (
-                    <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                    </svg>
-                  )}
-                  Add Contribution
-                </button>
-              </div>
+            </div>
+            <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-gray-700 shrink-0 bg-white dark:bg-gray-900">
+              <button onClick={() => setShowContributionModal(false)} className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">Cancel</button>
+              <button
+                onClick={handleContribution}
+                disabled={saving}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {saving && (
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                  </svg>
+                )}
+                Add Contribution
+              </button>
             </div>
           </div>
         </div>

@@ -387,21 +387,22 @@ export default function FinanceDashboard() {
       {quickOpen && (
         <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50" onClick={() => setQuickOpen(false)}>
           <div
-            className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 max-h-[75vh] overflow-y-auto overscroll-contain p-5"
+            className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[85vh] sm:max-h-[90vh]"
             onClick={e => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="relative p-6 pb-2 shrink-0">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">Add Transaction</h3>
-              <button onClick={() => setQuickOpen(false)} className="p-1 text-gray-400 hover:text-gray-600">
+              <button onClick={() => setQuickOpen(false)} className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
                 <CloseIcon className="w-5 h-5" />
               </button>
             </div>
             {quickError && (
-              <div className="mb-4 rounded-lg border border-error-200 bg-error-50 p-3 text-sm text-error-700 dark:border-error-800 dark:bg-error-900/20 dark:text-error-400">
+              <div className="mx-6 mb-2 rounded-lg border border-error-200 bg-error-50 p-3 text-sm text-error-700 dark:border-error-800 dark:bg-error-900/20 dark:text-error-400 shrink-0">
                 {quickError}
               </div>
             )}
-            <form onSubmit={handleQuickAdd} className="space-y-3">
+            <form onSubmit={handleQuickAdd} className="flex flex-col flex-1 min-h-0">
+              <div className="overflow-y-auto overscroll-contain px-6 pb-4 space-y-3 flex-1">
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -477,14 +478,17 @@ export default function FinanceDashboard() {
                   placeholder="What was this for?"
                 />
               </div>
-              <button
-                type="submit"
-                disabled={quickSaving}
-                className="w-full py-3 bg-brand-500 text-white rounded-xl hover:bg-brand-600 disabled:opacity-50 font-medium flex items-center justify-center gap-2"
-              >
-                {quickSaving && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-                {quickSaving ? "Saving..." : `Add ${quickForm.type === "income" ? "Income" : "Expense"}`}
-              </button>
+              </div>
+              <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-700 shrink-0 bg-white dark:bg-gray-900">
+                <button
+                  type="submit"
+                  disabled={quickSaving}
+                  className="w-full py-3 bg-brand-500 text-white rounded-xl hover:bg-brand-600 disabled:opacity-50 font-medium flex items-center justify-center gap-2"
+                >
+                  {quickSaving && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+                  {quickSaving ? "Saving..." : `Add ${quickForm.type === "income" ? "Income" : "Expense"}`}
+                </button>
+              </div>
             </form>
           </div>
         </div>

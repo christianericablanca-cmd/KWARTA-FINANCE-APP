@@ -410,21 +410,22 @@ export default function TransactionsPage() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setIsModalOpen(false)}>
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl max-h-[80vh] overflow-y-auto overscroll-contain bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
-            <div className="relative">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">
+          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[85vh] sm:max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+            <div className="relative p-6 pb-2 shrink-0">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
                 {editingTransaction ? "Edit Transaction" : "Add Transaction"}
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="absolute top-0 right-0 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
+              <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300" aria-label="Close">
                 <CloseIcon className="w-5 h-5" />
               </button>
             </div>
             {error && (
-              <div className="mb-4 rounded-lg border border-error-200 bg-error-50 p-3 text-sm text-error-700 dark:border-error-800 dark:bg-error-900/20 dark:text-error-400">
+              <div className="mx-6 mb-2 rounded-lg border border-error-200 bg-error-50 p-3 text-sm text-error-700 dark:border-error-800 dark:bg-error-900/20 dark:text-error-400 shrink-0">
                 {error}
               </div>
             )}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
+              <div className="overflow-y-auto overscroll-contain px-6 pb-4 space-y-4 flex-1">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Type</label>
                 <select
@@ -510,7 +511,8 @@ export default function TransactionsPage() {
                   placeholder="work, essential, subscription"
                 />
               </div>
-              <div className="flex justify-end gap-3 pt-4">
+              </div>
+              <div className="flex justify-end gap-3 px-6 py-4 border-t border-gray-100 dark:border-gray-700 shrink-0 bg-white dark:bg-gray-900">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
                   Cancel
                 </button>
