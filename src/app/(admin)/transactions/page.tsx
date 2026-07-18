@@ -409,7 +409,7 @@ export default function TransactionsPage() {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setIsModalOpen(false)}>
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50" onClick={() => setIsModalOpen(false)}>
           <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white dark:bg-gray-900 flex flex-col max-h-[85vh] sm:max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
             <div className="relative p-6 pb-2 shrink-0">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -537,7 +537,7 @@ export default function TransactionsPage() {
 
       {/* Delete confirmation dialog */}
       {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setDeleteConfirmId(null)}>
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50" onClick={() => setDeleteConfirmId(null)}>
           <div className="w-full max-w-sm rounded-2xl bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-2">Delete Transaction</h3>
@@ -568,7 +568,7 @@ export default function TransactionsPage() {
 
       {/* Bulk delete confirmation dialog */}
       {bulkDeleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50" onClick={() => setBulkDeleteConfirm(false)}>
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center bg-black/50" onClick={() => setBulkDeleteConfirm(false)}>
           <div className="w-full max-w-sm rounded-2xl bg-white p-6 dark:bg-gray-900" onClick={(e) => e.stopPropagation()}>
             <div className="relative">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90 mb-2">Delete Transactions</h3>
